@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+# from django.core.paginator import Paginator
+
 
 DATA = {
     'omlet': {
@@ -28,3 +31,15 @@ DATA = {
 #     'ингредиент2': количество2,
 #   }
 # }
+
+def get_ingredients(request, dush):
+    # dush = request.GET.get("dush") 
+    servings = request.GET.get("servings", 1)
+    context = {'recipe': {}}
+    if dush in DATA:
+        recipe = DATA[dush]
+        for key, value in recipe.items():
+            recipe[key] = value * int(servings)
+        context['recipe'] = recipe
+
+    return render(request, 'calculator/index.html', context)

@@ -15,7 +15,9 @@ Including another URLconf
 """
 
 from django.urls import path
+from calculator.views import get_ingredients
 
 urlpatterns = [
+    path('ingredients/<dush>/', get_ingredients),
     # здесь зарегистрируйте вашу view-функцию
 ]
